@@ -8,10 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestfulAPI.Data;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RestfulAPI.Mappings;
+using RestfulAPI.Repository;
+using RestfulAPI.Repository.IRepository;
 
 namespace RestfulAPI
 {
@@ -28,6 +32,8 @@ namespace RestfulAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<INationalParkRepository,NationalParkRepository>();
+            services.AddAutoMapper(typeof(NationalParkMappings));
             services.AddControllers();
         }
 
