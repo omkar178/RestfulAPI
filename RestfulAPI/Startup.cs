@@ -34,6 +34,13 @@ namespace RestfulAPI
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository,NationalParkRepository>();
             services.AddAutoMapper(typeof(NationalParkMappings));
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("RestfulOpenApiSpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title ="RestfulApi",
+                    Version ="1.0"
+                });
+            });
             services.AddControllers();
         }
 
@@ -46,7 +53,7 @@ namespace RestfulAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseSwagger();
             app.UseRouting();
 
             app.UseAuthorization();

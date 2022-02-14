@@ -104,8 +104,8 @@ namespace RestfulAPI.Controllers
             
         }
 
-        [HttpPatch("{Id:int}", Name = "DeleteNationalPark")]
-        public IActionResult DeleteNationalPark(int Id)
+        [HttpDelete("{Id:int}", Name = "DeleteNationalParkById")]
+        public IActionResult DeleteNationalParkById(int Id)
         {
             if (!_npRepo.IsExist(Id))
             {
@@ -122,8 +122,8 @@ namespace RestfulAPI.Controllers
             return NoContent();
             
         }
-
-        public IActionResult DeleteNationalPark(string name)
+        [HttpDelete("{name:alpha}", Name = "DeleteNationalParkByName")]
+        public IActionResult DeleteNationalParkByName(string name)
         {
             if (string.IsNullOrEmpty(name))
             { 
@@ -144,5 +144,6 @@ namespace RestfulAPI.Controllers
             return NoContent();
 
         }
+
     }
 }
