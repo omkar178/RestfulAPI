@@ -54,6 +54,11 @@ namespace RestfulAPI
 
             app.UseHttpsRedirection();
             app.UseSwagger();
+            app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/swagger/RestfulOpenApiSpecification/swagger.json", "RestfulAPI");
+                options.RoutePrefix = "";
+               
+            });
             app.UseRouting();
 
             app.UseAuthorization();
