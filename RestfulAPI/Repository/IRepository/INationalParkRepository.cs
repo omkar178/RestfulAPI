@@ -7,6 +7,7 @@ namespace RestfulAPI.Repository.IRepository
     {
         IEnumerable<NationalPark> GetAllNationalParks();
         NationalPark GetNationalPark(int Id);
+        NationalPark GetNationalPark(string name);
         bool CreateNationalPark(NationalPark nationalPark);
         bool UpdateNationalPark(NationalPark nationalPark);
         bool DeleteNationalPark(NationalPark nationalPark);

@@ -46,6 +46,11 @@ namespace RestfulAPI.Repository
             return _db.nationalParks.FirstOrDefault(n => n.Id == Id);
         }
 
+        public NationalPark GetNationalPark(string name)
+        {
+            return _db.nationalParks.FirstOrDefault(n => n.Name == name);
+        }
+
         public bool IsExist(int Id)
         {
             return _db.nationalParks.Any(n => n.Id == Id);

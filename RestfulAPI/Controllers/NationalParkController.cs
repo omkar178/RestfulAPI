@@ -38,7 +38,7 @@ namespace RestfulAPI.Controllers
             return NotFound();
         }
 
-        [HttpGet("{Id:int}")]
+        [HttpGet("{Id:int}",Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int Id)
         {
             var nationalPark = _npRepo.GetNationalPark(Id);
@@ -64,10 +64,11 @@ namespace RestfulAPI.Controllers
                 ModelState.AddModelError("",$"NationalPark {nationalParkDto.Name} already exist");
                 return StatusCode(404,ModelState);
             }
-            if (!ModelState.IsValid)
+
+            /* if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            }*/
 
             var Obj = _mapper.Map<NationalPark>(nationalParkDto);
             if (!_npRepo.CreateNationalPark(Obj))
@@ -76,7 +77,72 @@ namespace RestfulAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok();
+            return CreatedAtRoute("GetNationalPark",new { Id = Obj.Id },Obj);
+        }
+
+        [HttpPatch("{Id:int}", Name = "UpdatedNationalPark")]
+        public IActionResult UpdatedNationalPark(int Id ,[FromBody] NationalParkDto nationalParkDto)
+        {
+            if (Id == nationalParkDto.Id || nationalParkDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!_npRepo.IsExist(Id))
+            {
+                ModelState.AddModelError("", $"NationalPark {nationalParkDto.Name} not exits");
+                return StatusCode(404, ModelState);
+            }
+
+            var nationalPark = _mapper.Map<NationalPark>(nationalParkDto);
+            if (!_npRepo.UpdateNationalPark(nationalPark))
+            {
+                ModelState.AddModelError("",$"Something Wrong happned while updating {nationalPark.Name} to the database");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+            
+        }
+
+        [HttpPatch("{Id:int}", Name = "DeleteNationalPark")]
+        public IActionResult DeleteNationalPark(int Id)
+        {
+            if (!_npRepo.IsExist(Id))
+            {
+                return NotFound();
+            }
+
+            var nationalPark = _npRepo.GetNationalPark(Id);
+            if(!_npRepo.DeleteNationalPark(nationalPark))
+            {
+                ModelState.AddModelError("", $"Something wrong happened while deleting {nationalPark.Name} to database");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+            
+        }
+
+        public IActionResult DeleteNationalPark(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            { 
+                return BadRequest(ModelState);
+            }
+
+            if (!_npRepo.IsExist(name))
+            {
+                return NotFound();
+            }
+
+            var nationalPark = _npRepo.GetNationalPark(name);
+            if (!_npRepo.DeleteNationalPark(nationalPark))
+            {
+                ModelState.AddModelError("", $"Something wrong happened while deleting {nationalPark.Name} to database");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+
         }
     }
 }
