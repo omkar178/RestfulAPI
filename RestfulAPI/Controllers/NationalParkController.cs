@@ -38,6 +38,7 @@ namespace RestfulAPI.Controllers
             return NotFound();
         }
 
+
         [HttpGet("{Id:int}",Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int Id)
         {
@@ -51,6 +52,7 @@ namespace RestfulAPI.Controllers
             return Ok(objDto);
             
         }
+
 
         [HttpPost]
         public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
@@ -80,14 +82,15 @@ namespace RestfulAPI.Controllers
             return CreatedAtRoute("GetNationalPark",new { Id = Obj.Id },Obj);
         }
 
+
         [HttpPatch("{Id:int}", Name = "UpdatedNationalPark")]
         public IActionResult UpdatedNationalPark(int Id ,[FromBody] NationalParkDto nationalParkDto)
         {
-            if (Id == nationalParkDto.Id || nationalParkDto == null)
+            if (Id != nationalParkDto.Id || nationalParkDto == null)
             {
                 return BadRequest(ModelState);
             }
-            if (!_npRepo.IsExist(Id))
+            if (!_npRepo.IsExist(Id) || !_npRepo.IsExist(nationalParkDto.Name))
             {
                 ModelState.AddModelError("", $"NationalPark {nationalParkDto.Name} not exits");
                 return StatusCode(404, ModelState);
@@ -103,6 +106,7 @@ namespace RestfulAPI.Controllers
             return NoContent();
             
         }
+
 
         [HttpDelete("{Id:int}", Name = "DeleteNationalParkById")]
         public IActionResult DeleteNationalParkById(int Id)
@@ -122,8 +126,10 @@ namespace RestfulAPI.Controllers
             return NoContent();
             
         }
-        [HttpDelete("{name:alpha}", Name = "DeleteNationalParkByName")]
-        public IActionResult DeleteNationalParkByName(string name)
+
+
+        [HttpDelete(Name = "DeleteNationalParkByName")]
+        public IActionResult DeleteNationalParkByName([FromBody] string name)
         {
             if (string.IsNullOrEmpty(name))
             { 
