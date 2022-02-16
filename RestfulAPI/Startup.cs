@@ -41,8 +41,21 @@ namespace RestfulAPI
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("RestfulOpenApiSpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
-                    Title ="RestfulApi",
-                    Version ="1.0"
+                    Title = "RESTFUL API",
+                    Version = "1.0",
+                    Description = "RESTFUL API",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                    {
+                        Name = "Omkar Navik",
+                        Email = "Navik46@gmail.com",
+                        Url = new Uri("https://github.com/omkar178/RestfulAPI/tree/master/RestfulAPI")
+                    },
+                    License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                    {
+                        Name = "GIT License",
+                        Url = new Uri("https://github.com/omkar178/RestfulAPI"),
+
+                    }
                 });
                 var xmlCommentFilePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var fullPath = Path.Combine(AppContext.BaseDirectory,xmlCommentFilePath);
