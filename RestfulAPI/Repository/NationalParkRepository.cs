@@ -6,7 +6,9 @@ using System.Linq;
 
 namespace RestfulAPI.Repository
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class NationalParkRepository : INationalParkRepository
+
     {
         public readonly ApplicationDbContext _db;
         public NationalParkRepository(ApplicationDbContext db)
@@ -72,5 +74,5 @@ namespace RestfulAPI.Repository
             return Save();
         }
     }
-        
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

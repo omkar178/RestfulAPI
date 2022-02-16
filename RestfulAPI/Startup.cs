@@ -16,10 +16,14 @@ using System.Threading.Tasks;
 using RestfulAPI.Mappings;
 using RestfulAPI.Repository;
 using RestfulAPI.Repository.IRepository;
+using System.Reflection;
+using System.IO;
 
 namespace RestfulAPI
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
+
     {
         public Startup(IConfiguration configuration)
         {
@@ -40,6 +44,9 @@ namespace RestfulAPI
                     Title ="RestfulApi",
                     Version ="1.0"
                 });
+                var xmlCommentFilePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var fullPath = Path.Combine(AppContext.BaseDirectory,xmlCommentFilePath);
+                options.IncludeXmlComments(fullPath);
             });
             services.AddControllers();
         }
@@ -60,13 +67,12 @@ namespace RestfulAPI
                
             });
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

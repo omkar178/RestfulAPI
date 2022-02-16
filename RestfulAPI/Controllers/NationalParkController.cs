@@ -11,16 +11,30 @@ namespace RestfulAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class NationalParkController : Controller
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         private readonly INationalParkRepository _npRepo;
         private readonly IMapper _mapper;
+
+        /// <summary>
+        /// Initialize Repository and mapper object
+        /// </summary>
+        /// <param name="npRepo"></param>
+        /// <param name="mapper"></param>
         public NationalParkController(INationalParkRepository npRepo, IMapper mapper)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             _npRepo = npRepo;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Get All National park
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetAllNationalPark()
         {
@@ -38,7 +52,11 @@ namespace RestfulAPI.Controllers
             return NotFound();
         }
 
-
+        /// <summary>
+        /// Get Specific National Park
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet("{Id:int}",Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int Id)
         {
@@ -53,7 +71,11 @@ namespace RestfulAPI.Controllers
             
         }
 
-
+        /// <summary>
+        /// Create new national park
+        /// </summary>
+        /// <param name="nationalParkDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
         {
@@ -82,7 +104,12 @@ namespace RestfulAPI.Controllers
             return CreatedAtRoute("GetNationalPark",new { Id = Obj.Id },Obj);
         }
 
-
+        /// <summary>
+        /// Update National Park
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="nationalParkDto"></param>
+        /// <returns></returns>
         [HttpPatch("{Id:int}", Name = "UpdatedNationalPark")]
         public IActionResult UpdatedNationalPark(int Id ,[FromBody] NationalParkDto nationalParkDto)
         {
@@ -107,7 +134,11 @@ namespace RestfulAPI.Controllers
             
         }
 
-
+        /// <summary>
+        /// Delete national park by it's Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpDelete("{Id:int}", Name = "DeleteNationalParkById")]
         public IActionResult DeleteNationalParkById(int Id)
         {
@@ -127,7 +158,11 @@ namespace RestfulAPI.Controllers
             
         }
 
-
+        /// <summary>
+        /// Delete national park by it's name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpDelete(Name = "DeleteNationalParkByName")]
         public IActionResult DeleteNationalParkByName([FromBody] string name)
         {
