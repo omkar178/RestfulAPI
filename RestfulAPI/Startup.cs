@@ -37,6 +37,7 @@ namespace RestfulAPI
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository,NationalParkRepository>();
+            services.AddScoped<ITrailsRepository, TrailsRepository>();
             services.AddAutoMapper(typeof(NationalParkMappings));
             services.AddAutoMapper(typeof(TrailsMappings));
             services.AddSwaggerGen(options => {
