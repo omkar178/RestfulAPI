@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace RestfulAPI.Repository.IRepository
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public interface INationalParkRepository
+
     {
         IEnumerable<NationalPark> GetAllNationalParks();
         NationalPark GetNationalPark(int Id);
@@ -17,4 +19,5 @@ namespace RestfulAPI.Repository.IRepository
         bool Save();
         
     }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

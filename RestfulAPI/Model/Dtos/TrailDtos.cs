@@ -5,7 +5,7 @@ using static RestfulAPI.Model.Trail;
 namespace RestfulAPI.Model.Dtos
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public class TrailDtocs
+    public class TrailDtos
     {
        
         public int Id { get; set; }

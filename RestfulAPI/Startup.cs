@@ -38,6 +38,7 @@ namespace RestfulAPI
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository,NationalParkRepository>();
             services.AddAutoMapper(typeof(NationalParkMappings));
+            services.AddAutoMapper(typeof(TrailsMappings));
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("RestfulOpenApiSpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
