@@ -53,5 +53,25 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.#ctor(RestfulAPI.Repository.IRepository.ITrailsRepository,AutoMapper.IMapper)">
+            <summary>
+             Initialize Repository and mapper object
+            </summary>
+            <param name="trailsRepository"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.GetAllTrail">
+            <summary>
+            Get All trails
+            </summary>
+            <returns></returns>       
+        </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.GetTrail(System.Int32)">
+            <summary>
+            Get a Individual trail.
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
