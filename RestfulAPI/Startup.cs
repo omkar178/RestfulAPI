@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RestfulAPI.Data;
 using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using RestfulAPI.Mappings;
 using RestfulAPI.Repository;
 using RestfulAPI.Repository.IRepository;
@@ -39,7 +33,6 @@ namespace RestfulAPI
             services.AddScoped<INationalParkRepository,NationalParkRepository>();
             services.AddScoped<ITrailsRepository, TrailsRepository>();
             services.AddAutoMapper(typeof(NationalParkMappings));
-            services.AddAutoMapper(typeof(TrailsMappings));
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("RestfulOpenApiSpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
