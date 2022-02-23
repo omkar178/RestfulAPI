@@ -11,7 +11,9 @@ using System.Linq;
 namespace RestfulAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/nationalpark")]   
+    //[Route("api/[controller]")]
+    //[ApiExplorerSettings(GroupName = "RestfulOpenApiSpecificationNP")] // This is use for add multiple open api documentation.
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class NationalParkController : Controller

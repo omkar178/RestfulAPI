@@ -12,6 +12,10 @@ using RestfulAPI.Repository;
 using RestfulAPI.Repository.IRepository;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace RestfulAPI
 {
@@ -33,34 +37,63 @@ namespace RestfulAPI
             services.AddScoped<INationalParkRepository,NationalParkRepository>();
             services.AddScoped<ITrailsRepository, TrailsRepository>();
             services.AddAutoMapper(typeof(NationalParkMappings));
-            services.AddSwaggerGen(options => {
-                options.SwaggerDoc("RestfulOpenApiSpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
-                {
-                    Title = "RESTFUL API",
-                    Version = "1.0",
-                    Description = "RESTFUL API",
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact()
-                    {
-                        Name = "Omkar Navik",
-                        Email = "Navik46@gmail.com",
-                        Url = new Uri("https://github.com/omkar178/RestfulAPI/tree/master/RestfulAPI")
-                    },
-                    License = new Microsoft.OpenApi.Models.OpenApiLicense()
-                    {
-                        Name = "GIT License",
-                        Url = new Uri("https://github.com/omkar178/RestfulAPI"),
-
-                    }
-                });
-                var xmlCommentFilePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var fullPath = Path.Combine(AppContext.BaseDirectory,xmlCommentFilePath);
-                options.IncludeXmlComments(fullPath);
+            services.AddApiVersioning(options => {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
             });
+            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+            services.AddSwaggerGen();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaagerOptions>();
+
+            //services.AddSwaggerGen(options => {
+            //    options.SwaggerDoc("RestfulOpenApiSpecificationNP", new Microsoft.OpenApi.Models.OpenApiInfo()
+            //    {
+            //        Title = "RESTFUL API NP",
+            //        Version = "1.0",
+            //        Description = "RESTFUL API NP",
+            //        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+            //        {
+            //            Name = "Omkar Navik",
+            //            Email = "Navik46@gmail.com",
+            //            Url = new Uri("https://github.com/omkar178/RestfulAPI/tree/master/RestfulAPI")
+            //        },
+            //        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+            //        {
+            //            Name = "GIT License",
+            //            Url = new Uri("https://github.com/omkar178/RestfulAPI"),
+
+            //        }
+            //    });
+
+                //options.SwaggerDoc("RestfulOpenApiSpecificationTrail", new Microsoft.OpenApi.Models.OpenApiInfo()
+                //{
+                //    Title = "RESTFUL API Trail",
+                //    Version = "1.0",
+                //    Description = "RESTFUL API Trail",
+                //    Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                //    {
+                //        Name = "Omkar Navik",
+                //        Email = "Navik46@gmail.com",
+                //        Url = new Uri("https://github.com/omkar178/RestfulAPI/tree/master/RestfulAPI")
+                //    },
+                //    License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                //    {
+                //        Name = "GIT License",
+                //        Url = new Uri("https://github.com/omkar178/RestfulAPI"),
+
+                //    }
+                //});
+
+            //    var xmlCommentFilePath = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            //    var fullPath = Path.Combine(AppContext.BaseDirectory,xmlCommentFilePath);
+            //    options.IncludeXmlComments(fullPath);
+            //});
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -70,10 +103,18 @@ namespace RestfulAPI
             app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(options => {
-                options.SwaggerEndpoint("/swagger/RestfulOpenApiSpecification/swagger.json", "RestfulAPI");
-                options.RoutePrefix = "";
-               
+                foreach (var desc in provider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json",desc.GroupName.ToUpperInvariant());
+                }
             });
+
+            //app.UseSwaggerUI(options => {
+            //    options.SwaggerEndpoint("/swagger/RestfulOpenApiSpecification/swagger.json", "RestfulAPI");
+            //   // options.SwaggerEndpoint("/swagger/RestfulOpenApiSpecificationTrail/swagger.json", "RestfulAPI_Trail");
+            //    options.RoutePrefix = "";
+               
+            //});
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

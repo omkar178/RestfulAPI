@@ -4,6 +4,18 @@
         <name>RestfulAPI</name>
     </assembly>
     <members>
+        <member name="M:RestfulAPI.ConfigureSwaagerOptions.#ctor(Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            Initalized ApiVersion Description provider.
+            </summary>
+            <param name="provider"></param>
+        </member>
+        <member name="M:RestfulAPI.ConfigureSwaagerOptions.Configure(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+        </member>
         <member name="M:RestfulAPI.Controllers.NationalParkController.#ctor(RestfulAPI.Repository.IRepository.INationalParkRepository,AutoMapper.IMapper)">
             <summary>
             Initialize Repository and mapper object
@@ -53,6 +65,26 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="M:RestfulAPI.Controllers.NationalParkV2Controller.#ctor(RestfulAPI.Repository.IRepository.INationalParkRepository,AutoMapper.IMapper)">
+            <summary>
+            Initialize Repository and mapper object
+            </summary>
+            <param name="npRepo"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:RestfulAPI.Controllers.NationalParkV2Controller.GetAllNationalPark">
+            <summary>
+            Get All National park
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RestfulAPI.Controllers.NationalParkV2Controller.GetNationalPark(System.Int32)">
+            <summary>
+            Get Specific National Park
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
         <member name="M:RestfulAPI.Controllers.TrailController.#ctor(RestfulAPI.Repository.IRepository.ITrailsRepository,AutoMapper.IMapper)">
             <summary>
              Initialize Repository and mapper object
@@ -71,6 +103,35 @@
             Get a Individual trail.
             </summary>
             <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.CreateTrail(RestfulAPI.Model.Dtos.TrailCreateDtos)">
+            <summary>
+            Create Trails
+            </summary>
+            <param name="trailCreateDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.UpdateTrail(System.Int32,RestfulAPI.Model.Dtos.TrailUpdateDtos)">
+            <summary>
+            Update trails
+            </summary>
+            <param name="Id"></param>
+            <param name="trailUpdateDtos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.DeleteTrailsById(System.Int32)">
+            <summary>
+            Delete Trail by Id
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RestfulAPI.Controllers.TrailController.DeleteTrailsByName(System.String)">
+            <summary>
+            Delete trail by name
+            </summary>
+            <param name="name"></param>
             <returns></returns>
         </member>
     </members>
