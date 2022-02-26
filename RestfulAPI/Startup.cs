@@ -43,8 +43,9 @@ namespace RestfulAPI
                 options.ReportApiVersions = true;
             });
             services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV");
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaagerOptions>();          
             services.AddSwaggerGen();
-            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaagerOptions>();
+           
 
             //services.AddSwaggerGen(options => {
             //    options.SwaggerDoc("RestfulOpenApiSpecificationNP", new Microsoft.OpenApi.Models.OpenApiInfo()
@@ -107,6 +108,7 @@ namespace RestfulAPI
                 {
                     options.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json",desc.GroupName.ToUpperInvariant());
                 }
+                options.RoutePrefix = "";
             });
 
             //app.UseSwaggerUI(options => {

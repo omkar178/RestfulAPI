@@ -28,20 +28,20 @@ namespace RestfulAPI
                 options.SwaggerDoc(desc.GroupName, new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Title = $"Restful Api {desc.ApiVersion}",
-                    Version = desc.ApiVersion.ToString(),
-                    Description = "RESTFUL API NP",
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact()
-                    {
-                        Name = "Omkar Navik",
-                        Email = "Navik46@gmail.com",
-                        Url = new Uri("https://github.com/omkar178/RestfulAPI/tree/master/RestfulAPI")
-                    },
-                    License = new Microsoft.OpenApi.Models.OpenApiLicense()
-                    {
-                        Name = "GIT License",
-                        Url = new Uri("https://github.com/omkar178/RestfulAPI"),
-                    }
-                }) ;
+                    Version = desc.ApiVersion.ToString()
+                    //Description = "RESTFUL API NP",
+                    //Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                    //{
+                    //    Name = "Omkar Navik",
+                    //    Email = "Navik46@gmail.com",
+                    //    Url = new Uri("https://github.com/omkar178/RestfulAPI/tree/master/RestfulAPI")
+                    //},
+                    //License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                    //{
+                    //    Name = "GIT License",
+                    //    Url = new Uri("https://github.com/omkar178/RestfulAPI")
+                    //}
+                });
             }
         }
     }

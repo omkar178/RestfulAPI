@@ -11,7 +11,7 @@ using System.Linq;
 namespace RestfulAPI.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/nationalpark")]   
+    [Route("api/v{version:apiVersion}/nationalpark")]
     //[Route("api/[controller]")]
     //[ApiExplorerSettings(GroupName = "RestfulOpenApiSpecificationNP")] // This is use for add multiple open api documentation.
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -22,7 +22,7 @@ namespace RestfulAPI.Controllers
         private readonly INationalParkRepository _npRepo;
         private readonly IMapper _mapper;
 
-        
+
         /// <summary>
         /// Initialize Repository and mapper object
         /// </summary>
@@ -40,7 +40,7 @@ namespace RestfulAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(List<NationalPark>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<NationalPark>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public IActionResult GetAllNationalPark()
@@ -48,7 +48,7 @@ namespace RestfulAPI.Controllers
             var objList = _npRepo.GetAllNationalParks();
             var objDto = new List<NationalParkDto>();
 
-            if (objList != null && objList.Count() > 0 )
+            if (objList != null && objList.Count() > 0)
             {
                 foreach (NationalPark np in objList)
                 {
@@ -64,8 +64,8 @@ namespace RestfulAPI.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet("{Id:int}",Name = "GetNationalPark")]
-        [ProducesResponseType(StatusCodes.Status200OK,Type = typeof(NationalPark))]
+        [HttpGet("{Id:int}", Name = "GetNationalPark")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(NationalPark))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public IActionResult GetNationalPark(int Id)
@@ -78,29 +78,29 @@ namespace RestfulAPI.Controllers
 
             var objDto = _mapper.Map<NationalParkDto>(nationalPark);
             return Ok(objDto);
-            
+
         }
 
         /// <summary>
         /// Create new national park
         /// </summary>
-        /// <param name="nationalParkDto"></param>
+        /// <param name="nationalParkCreateDto"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public IActionResult CreateNationalPark([FromBody] NationalParkDto nationalParkDto)
+        public IActionResult CreateNationalPark([FromBody] NationalParkCreateDto nationalParkCreateDto)
         {
-            if (nationalParkDto == null)
-            { 
+            if (nationalParkCreateDto == null)
+            {
                 return BadRequest(ModelState);
             }
-            if (_npRepo.IsExist(nationalParkDto.Name))
+            if (_npRepo.IsExist(nationalParkCreateDto.Name))
             {
-                ModelState.AddModelError("",$"NationalPark {nationalParkDto.Name} already exist");
-                return StatusCode(404,ModelState);
+                ModelState.AddModelError("", $"NationalPark {nationalParkCreateDto.Name} already exist");
+                return StatusCode(404, ModelState);
             }
 
             /* if (!ModelState.IsValid)
@@ -108,14 +108,14 @@ namespace RestfulAPI.Controllers
                 return BadRequest(ModelState);
             }*/
 
-            var Obj = _mapper.Map<NationalPark>(nationalParkDto);
+            var Obj = _mapper.Map<NationalPark>(nationalParkCreateDto);
             if (!_npRepo.CreateNationalPark(Obj))
             {
                 ModelState.AddModelError("", $"Somethind Wrong happned while adding {Obj.Name} to the database");
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetNationalPark",new { Id = Obj.Id },Obj);
+            return CreatedAtRoute("GetNationalPark", new { version = HttpContext.GetRequestedApiVersion(), Id = Obj.Id }, Obj); ;
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace RestfulAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesDefaultResponseType]
-        public IActionResult UpdatedNationalPark(int Id ,[FromBody] NationalParkDto nationalParkDto)
+        public IActionResult UpdatedNationalPark(int Id, [FromBody] NationalParkDto nationalParkDto)
         {
             if (Id != nationalParkDto.Id || nationalParkDto == null)
             {
@@ -144,12 +144,12 @@ namespace RestfulAPI.Controllers
             var nationalPark = _mapper.Map<NationalPark>(nationalParkDto);
             if (!_npRepo.UpdateNationalPark(nationalPark))
             {
-                ModelState.AddModelError("",$"Something Wrong happned while updating {nationalPark.Name} to the database");
+                ModelState.AddModelError("", $"Something Wrong happned while updating {nationalPark.Name} to the database");
                 return StatusCode(500, ModelState);
             }
 
             return NoContent();
-            
+
         }
 
         /// <summary>
@@ -170,14 +170,14 @@ namespace RestfulAPI.Controllers
             }
 
             var nationalPark = _npRepo.GetNationalPark(Id);
-            if(!_npRepo.DeleteNationalPark(nationalPark))
+            if (!_npRepo.DeleteNationalPark(nationalPark))
             {
                 ModelState.AddModelError("", $"Something wrong happened while deleting {nationalPark.Name} to database");
                 return StatusCode(500, ModelState);
             }
 
             return NoContent();
-            
+
         }
 
         /// <summary>
@@ -185,12 +185,12 @@ namespace RestfulAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        [HttpDelete(Name = "DeleteNationalParkByName")]
+        [HttpDelete("[action]/{name:alpha}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesDefaultResponseType]
-        public IActionResult DeleteNationalParkByName([FromBody] string name)
+        public IActionResult DeleteNationalParkByName(string name)
         {
             if (string.IsNullOrEmpty(name))
             { 

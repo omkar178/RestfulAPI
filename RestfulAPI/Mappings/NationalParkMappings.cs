@@ -11,9 +11,11 @@ namespace RestfulAPI.Mappings
         public NationalParkMappings()
         {
             CreateMap<NationalPark,NationalParkDto>().ReverseMap();
+            CreateMap<NationalPark, NationalParkCreateDto>().ReverseMap();
             CreateMap<Trail, TrailDtos>().ReverseMap();
             CreateMap<Trail, TrailCreateDtos>().ReverseMap();
             CreateMap<Trail, TrailUpdateDtos>().ReverseMap();
+
         }
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

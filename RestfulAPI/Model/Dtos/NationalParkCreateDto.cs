@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace RestfulAPI.Model.Dtos
 {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public class NationalParkDto
-    {      
-        public int Id { get; set; }
+    public class NationalParkCreateDto
+    {        
         [Required]
         public string Name { get; set; }
         [Required]
