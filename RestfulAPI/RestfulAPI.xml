@@ -36,11 +36,11 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
-        <member name="M:RestfulAPI.Controllers.NationalParkController.CreateNationalPark(RestfulAPI.Model.Dtos.NationalParkDto)">
+        <member name="M:RestfulAPI.Controllers.NationalParkController.CreateNationalPark(RestfulAPI.Model.Dtos.NationalParkCreateDto)">
             <summary>
             Create new national park
             </summary>
-            <param name="nationalParkDto"></param>
+            <param name="nationalParkCreateDto"></param>
             <returns></returns>
         </member>
         <member name="M:RestfulAPI.Controllers.NationalParkController.UpdatedNationalPark(System.Int32,RestfulAPI.Model.Dtos.NationalParkDto)">
