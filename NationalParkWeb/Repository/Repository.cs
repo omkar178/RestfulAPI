@@ -37,7 +37,7 @@ namespace NationalParkWeb.Repository
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, URL + Id);
             HttpResponseMessage response = await _httpClientFactory.CreateClient().SendAsync(request);
-            if (response.StatusCode == HttpStatusCode.Created)
+            if (response.StatusCode == HttpStatusCode.NoContent)
                 return true;
             else
                 return false;
@@ -56,7 +56,7 @@ namespace NationalParkWeb.Repository
             return null;
         }
 
-        public async Task<T> GetAsync(string URL, int Id)
+        public async Task<T> GetAsync(string URL, int? Id)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, URL + Id);
             HttpResponseMessage response = await _httpClientFactory.CreateClient().SendAsync(request);
