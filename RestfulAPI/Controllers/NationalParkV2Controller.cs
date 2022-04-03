@@ -17,7 +17,7 @@ namespace RestfulAPI.Controllers
     //[ApiExplorerSettings(GroupName = "RestfulOpenApiSpecificationNP")] // This is use for add multiple open api documentation.
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public class NationalParkV2Controller : Controller
+    public class NationalParkV2Controller : ControllerBase
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         private readonly INationalParkRepository _npRepo;

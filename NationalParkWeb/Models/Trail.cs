@@ -10,6 +10,8 @@ namespace NationalParkWeb.Models
         public string Name { get; set; }
         [Required]
         public double Distance { get; set; }
+        [Required]
+        public double Elevation { get; set; }
         public enum DiffcultyType { Easy, Moderate, Difficult, Expert }
         public DiffcultyType Diffculty { get; set; }
         [Required]

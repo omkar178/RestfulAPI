@@ -7,5 +7,6 @@ namespace NationalParkWeb.Models.ViewModel
     {
         public IEnumerable<SelectListItem> NationalParkList { get; set; }
         public Trail trail { get; set; }    
+
     }
 }

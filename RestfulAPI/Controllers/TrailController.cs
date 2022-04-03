@@ -16,7 +16,7 @@ namespace RestfulAPI.Controllers
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public class TrailController : Controller
+    public class TrailController : ControllerBase
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         private readonly ITrailsRepository _trailsRepository;

@@ -11,6 +11,8 @@ namespace RestfulAPI.Model.Dtos
         public string Name { get; set; }
         [Required]
         public double Distance { get; set; }
+        [Required]
+        public double Elevation { get; set; }
         public DiffcultyType Diffculty { get; set; }
         [Required]
         public int NationalParkId { get; set; }

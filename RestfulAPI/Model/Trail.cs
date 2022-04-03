@@ -14,8 +14,9 @@ namespace RestfulAPI.Model
         public string Name { get; set; }
         [Required]
         public double Distance  { get; set; }
-        public enum DiffcultyType { Easy,Moderate,Difficult,Expert }
-        
+        [Required]
+        public double Elevation { get; set; }
+        public enum DiffcultyType { Easy,Moderate,Difficult,Expert }     
         public DiffcultyType Diffculty { get; set; }
         [Required]        
         public int NationalParkId { get; set; }
