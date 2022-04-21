@@ -14,7 +14,7 @@ namespace RestfulAPI.Data
 
         public DbSet<NationalPark> nationalParks { get; set; }
         public DbSet<Trail> trails { get; set; }
-
+        public DbSet<Users> users { get; set; }
     }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

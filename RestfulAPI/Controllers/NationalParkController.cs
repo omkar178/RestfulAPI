@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestfulAPI.Model;
@@ -68,6 +69,7 @@ namespace RestfulAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(NationalPark))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
+        [Authorize]
         public IActionResult GetNationalPark(int Id)
         {
             var nationalPark = _npRepo.GetNationalPark(Id);
